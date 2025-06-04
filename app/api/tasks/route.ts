@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../lib/db';
-import { TaskStatus, Priority } from '@prisma/client';
+import { TaskStatus, Priority, Prisma } from '@prisma/client';
 
 // GET /api/tasks - Get all tasks
 export async function GET(request: NextRequest) {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
 
     // Build the where clause for filtering
-    const where: any = {};
+    const where: Prisma.TaskWhereInput = {};
   
     
     if (status && status !== 'all') {

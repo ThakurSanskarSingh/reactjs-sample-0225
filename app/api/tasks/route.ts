@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
 
     // Build the where clause for filtering
     const where: any = {};
+  
     
     if (status && status !== 'all') {
       where.status = status.toUpperCase() as TaskStatus;

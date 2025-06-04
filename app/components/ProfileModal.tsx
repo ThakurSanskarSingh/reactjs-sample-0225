@@ -1,5 +1,7 @@
 import React from 'react';
 import { ProfileModalProps } from '../lib/types';
+import Image from 'next/image';
+
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose }) => {
   return (
@@ -9,11 +11,13 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose }) => {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Profile</h2>
           
           <div className="text-center mb-6">
-            <img
-              src={user.avatar}
-              alt="Profile"
-              className="w-20 h-20 rounded-full mx-auto mb-4"
-            />
+          <Image
+  src={user.avatar}
+  alt="Profile"
+  width={80}
+  height={80}
+  className="rounded-full mx-auto mb-4"
+/>
             <h3 className="text-lg font-medium text-gray-900">{user.name}</h3>
             {user.walletAddress && (
               <p className="text-sm text-gray-600 mt-2">

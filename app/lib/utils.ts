@@ -1,5 +1,6 @@
 import {Task} from './types';
 import React, { ReactElement } from 'react';
+import Web3 from 'web3';
 
 export const getPriorityColor = (priority: string): string => {
   switch (priority?.toLowerCase()) {

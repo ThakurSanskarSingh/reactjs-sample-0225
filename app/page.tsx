@@ -8,6 +8,7 @@ import AddTaskModal from './components/AddTaskModal';
 import ProfileModal from './components/ProfileModal';
 import { Task, User as UserType } from './lib/types';
 import { connectWallet } from './lib/web3';
+import Image from 'next/image';
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -205,7 +206,13 @@ export default function Home() {
                 className="flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-lg transition-colors"
               >
                 {user?.avatar ? (
-                  <img src={user.avatar} alt="Profile" className="w-8 h-8 rounded-full" />
+  <Image 
+    src={user.avatar} 
+    alt="Profile" 
+    width={32} 
+    height={32} 
+    className="rounded-full" 
+  />
                 ) : (
                   <User className="w-6 h-6 text-gray-600" />
                 )}

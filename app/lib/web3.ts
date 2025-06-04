@@ -1,7 +1,10 @@
 // Web3 Integration utilities
 declare global {
   interface Window {
-    ethereum?: any;
+    ethereum?: {
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>; 
+     
+    };
   }
 }
 

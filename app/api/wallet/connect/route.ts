@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
             { status: 400 }
           );
         }
-      } catch (error) {
+      } catch  {
         return NextResponse.json(
           { error: 'Failed to verify signature', success: false },
           { status: 400 }

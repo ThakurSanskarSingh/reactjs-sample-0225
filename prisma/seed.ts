@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -20,7 +20,7 @@ async function main() {
         email: 'john.doe@example.com',
         avatar: 'https://picsum.photos/id/64/200/200',
         walletAddress: '0x742d35Cc6639Cf532793a3c7b5F15e6e3e6e8e6a',
-        role: 'PROJECT_MANAGER',
+        role: Role.MANAGER,
         createdAt: new Date('2025-01-01'),
         updatedAt: new Date('2025-01-01'),
       },
@@ -32,7 +32,7 @@ async function main() {
         email: 'jane.smith@example.com',
         avatar: 'https://picsum.photos/id/91/200/200',
         walletAddress: '0x8ba1f109551bD432803012645Hac136c34B3e8e6',
-        role: 'DEVELOPER',
+        role: Role.MEMBER,
         createdAt: new Date('2025-01-02'),
         updatedAt: new Date('2025-01-02'),
       },
@@ -44,7 +44,7 @@ async function main() {
         email: 'bob.johnson@example.com',
         avatar: 'https://picsum.photos/id/177/200/200',
         walletAddress: '0x123f109551bD432803012645Hac136c34B3e8e7',
-        role: 'DEVELOPER',
+        role: Role.MEMBER,
         createdAt: new Date('2025-01-03'),
         updatedAt: new Date('2025-01-03'),
       },
@@ -56,7 +56,7 @@ async function main() {
         email: 'alice.brown@example.com',
         avatar: 'https://picsum.photos/id/225/200/200',
         walletAddress: null, // User without wallet
-        role: 'DESIGNER',
+        role: Role.MEMBER,
         createdAt: new Date('2025-01-04'),
         updatedAt: new Date('2025-01-04'),
       },
@@ -68,7 +68,7 @@ async function main() {
         email: 'charlie.wilson@example.com',
         avatar: 'https://picsum.photos/id/342/200/200',
         walletAddress: '0x456f109551bD432803012645Hac136c34B3e8e8',
-        role: 'DEVELOPER',
+        role: Role.MEMBER,
         createdAt: new Date('2025-01-05'),
         updatedAt: new Date('2025-01-05'),
       },
@@ -91,10 +91,7 @@ async function main() {
         createdAt: new Date('2025-06-01'),
         updatedAt: new Date('2025-06-04'),
         assigneeId: 'user-4', // Alice Brown (Designer)
-        createdById: 'user-1', // John Doe (PM)
-        tags: ['design', 'ui', 'figma'],
-        estimatedHours: 16,
-        actualHours: 14,
+        creatorId: 'user-1', // John Doe (PM)
       },
     }),
     prisma.task.create({
@@ -108,10 +105,7 @@ async function main() {
         createdAt: new Date('2025-06-01'),
         updatedAt: new Date('2025-06-02'),
         assigneeId: 'user-2', // Jane Smith
-        createdById: 'user-1', // John Doe
-        tags: ['setup', 'nextjs', 'typescript'],
-        estimatedHours: 8,
-        actualHours: 6,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -125,10 +119,7 @@ async function main() {
         createdAt: new Date('2025-06-02'),
         updatedAt: new Date('2025-06-03'),
         assigneeId: 'user-3', // Bob Johnson
-        createdById: 'user-1', // John Doe
-        tags: ['database', 'prisma', 'schema'],
-        estimatedHours: 12,
-        actualHours: 10,
+        creatorId: 'user-1', // John Doe
       },
     }),
 
@@ -144,10 +135,7 @@ async function main() {
         createdAt: new Date('2025-06-02'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-2', // Jane Smith
-        createdById: 'user-1', // John Doe
-        tags: ['frontend', 'drag-drop', 'ux'],
-        estimatedHours: 20,
-        actualHours: 12,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -161,10 +149,7 @@ async function main() {
         createdAt: new Date('2025-06-03'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-3', // Bob Johnson
-        createdById: 'user-1', // John Doe
-        tags: ['web3', 'blockchain', 'metamask'],
-        estimatedHours: 24,
-        actualHours: 8,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -178,10 +163,7 @@ async function main() {
         createdAt: new Date('2025-06-04'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-5', // Charlie Wilson
-        createdById: 'user-1', // John Doe
-        tags: ['search', 'filter', 'frontend'],
-        estimatedHours: 16,
-        actualHours: 6,
+        creatorId: 'user-1', // John Doe
       },
     }),
 
@@ -197,10 +179,7 @@ async function main() {
         createdAt: new Date('2025-06-03'),
         updatedAt: new Date('2025-06-03'),
         assigneeId: 'user-4', // Alice Brown
-        createdById: 'user-1', // John Doe
-        tags: ['testing', 'jest', 'quality'],
-        estimatedHours: 32,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -214,10 +193,7 @@ async function main() {
         createdAt: new Date('2025-06-04'),
         updatedAt: new Date('2025-06-04'),
         assigneeId: 'user-2', // Jane Smith
-        createdById: 'user-1', // John Doe
-        tags: ['auth', 'security', 'nextauth'],
-        estimatedHours: 20,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -231,10 +207,7 @@ async function main() {
         createdAt: new Date('2025-06-04'),
         updatedAt: new Date('2025-06-04'),
         assigneeId: 'user-3', // Bob Johnson
-        createdById: 'user-1', // John Doe
-        tags: ['devops', 'ci-cd', 'github-actions'],
-        estimatedHours: 16,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -248,10 +221,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-5', // Charlie Wilson
-        createdById: 'user-1', // John Doe
-        tags: ['comments', 'realtime', 'notifications'],
-        estimatedHours: 24,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -265,10 +235,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-4', // Alice Brown
-        createdById: 'user-1', // John Doe
-        tags: ['mobile', 'responsive', 'ux'],
-        estimatedHours: 18,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -282,10 +249,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-2', // Jane Smith
-        createdById: 'user-1', // John Doe
-        tags: ['performance', 'optimization', 'bundle'],
-        estimatedHours: 20,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
 
@@ -301,10 +265,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-3', // Bob Johnson
-        createdById: 'user-1', // John Doe
-        tags: ['security', 'critical', 'xss'],
-        estimatedHours: 8,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
 
@@ -320,10 +281,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: null, // Unassigned
-        createdById: 'user-1', // John Doe
-        tags: ['documentation', 'readme', 'guides'],
-        estimatedHours: 12,
-        actualHours: 0,
+        creatorId: 'user-1', // John Doe
       },
     }),
     prisma.task.create({
@@ -337,10 +295,7 @@ async function main() {
         createdAt: new Date('2025-06-05'),
         updatedAt: new Date('2025-06-05'),
         assigneeId: 'user-4', // Alice Brown
-        createdById: 'user-2', // Jane Smith
-        tags: ['theme', 'dark-mode', 'ui'],
-        estimatedHours: 16,
-        actualHours: 0,
+        creatorId: 'user-2', // Jane Smith
       },
     }),
   ]);

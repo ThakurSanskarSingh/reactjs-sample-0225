@@ -1,6 +1,6 @@
 import {Task} from './types';
 import React, { ReactElement } from 'react';
-import Web3 from 'web3';
+import { CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react';
 
 export const getPriorityColor = (priority: string): string => {
   switch (priority?.toLowerCase()) {
@@ -22,8 +22,6 @@ export const getPriorityColor = (priority: string): string => {
 };
 
 export const getStatusIcon = (status: string): ReactElement => {
-  const { CheckCircle, Clock, AlertCircle, XCircle } = require('lucide-react');
-  
   switch (status?.toLowerCase()) {
     case 'done':
     case 'DONE':

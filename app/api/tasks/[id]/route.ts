@@ -2,14 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/db';
 import { TaskStatus, Priority } from '@prisma/client';
 
+type RouteContext = {
+  params: Promise<{ id: string }>;
+};
+
 // GET /api/tasks/[id] - Get a specific task
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
+    const { id } = await context.params;
     const task = await prisma.task.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         assignee: {
           select: {
@@ -48,14 +53,15 @@ export async function GET(
 // PUT /api/tasks/[id] - Update a specific task
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
+    const { id } = await context.params;
     const body = await request.json();
     
     // Check if task exists
     const existingTask = await prisma.task.findUnique({
-      where: { id: params.id }
+      where: { id }
     });
     
     if (!existingTask) {
@@ -67,7 +73,7 @@ export async function PUT(
 
     // Update the task
     const updatedTask = await prisma.task.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title: body.title,
         description: body.description,
@@ -108,12 +114,13 @@ export async function PUT(
 // DELETE /api/tasks/[id] - Delete a specific task
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
+    const { id } = await context.params;
     // Check if task exists
     const existingTask = await prisma.task.findUnique({
-      where: { id: params.id }
+      where: { id }
     });
     
     if (!existingTask) {
@@ -125,7 +132,7 @@ export async function DELETE(
 
     // Delete the task
     const deletedTask = await prisma.task.delete({
-      where: { id: params.id },
+      where: { id },
       include: {
         assignee: {
           select: {

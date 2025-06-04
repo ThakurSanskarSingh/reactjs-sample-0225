@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Task {
   id: string;
   title: string;
@@ -21,7 +23,7 @@ export interface TaskCardProps {
   onDragStart: () => void;
   onDelete: () => void;
   getPriorityColor: (priority: string) => string;
-  getStatusIcon: (status: string) => JSX.Element;
+  getStatusIcon: (status: string) => React.ReactElement;
 }
 
 export interface AddTaskModalProps {

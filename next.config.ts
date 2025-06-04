@@ -1,6 +1,8 @@
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.ts
+import type { NextConfig } from 'next';
+import type { Configuration as WebpackConfig } from 'webpack';
+
+const nextConfig: NextConfig = {
   experimental: {
     
   },
@@ -15,15 +17,18 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Enable webpack 5 features
-  webpack: (config, { isServer }) => {
+  webpack: (config: WebpackConfig, { isServer }: { isServer: boolean }) => {
     // Handle Node.js modules that can't be used in the browser
     if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-        crypto: false,
+      config.resolve = {
+        ...config.resolve,
+        fallback: {
+          ...config.resolve?.fallback,
+          fs: false,
+          net: false,
+          tls: false,
+          crypto: false,
+        },
       };
     }
     
@@ -61,4 +66,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
